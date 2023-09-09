@@ -1,8 +1,7 @@
 package ru.otus.otuskotlin.tasktracker.common.models
 
-enum class MkplPriority {
+enum class State {
     NONE,
-    LOW,
-    HIGH,
-    CRITICAL
+    RUNNING,
+    FAILING,
 }
