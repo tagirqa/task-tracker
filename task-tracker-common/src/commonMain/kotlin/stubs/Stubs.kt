@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.tasktracker.common.stubs
 
-enum class MkplStubs {
+enum class Stubs {
     NONE,
     SUCCESS,
     NOT_FOUND,

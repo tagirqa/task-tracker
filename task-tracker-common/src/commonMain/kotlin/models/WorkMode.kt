@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.tasktracker.common.models
 
-enum class MkplWorkMode {
+enum class WorkMode {
     PROD,
     TEST,
     STUB,

@@ -2,9 +2,10 @@ package ru.otus.otuskotlin.tasktracker.mappers.v1
 
 import org.junit.Test
 import ru.otus.otuskotlin.tasktracker.api.v1.models.*
-import ru.otus.otuskotlin.tasktracker.common.MkplContext
+import ru.otus.otuskotlin.tasktracker.common.Context
 import ru.otus.otuskotlin.tasktracker.common.models.*
-import ru.otus.otuskotlin.tasktracker.common.stubs.MkplStubs
+import ru.otus.otuskotlin.tasktracker.common.models.Error
+import ru.otus.otuskotlin.tasktracker.common.stubs.Stubs
 import kotlin.test.assertEquals
 
 class MapperTest {
@@ -25,36 +26,36 @@ class MapperTest {
             ),
         )
 
-        val context = MkplContext()
+        val context = Context()
         context.fromTransport(req)
 
-        assertEquals(MkplStubs.SUCCESS, context.stubCase)
-        assertEquals(MkplWorkMode.STUB, context.workMode)
+        assertEquals(Stubs.SUCCESS, context.stubCase)
+        assertEquals(WorkMode.STUB, context.workMode)
         assertEquals("title", context.taskRequest.title)
-        assertEquals(MkplPriority.CRITICAL, context.taskRequest.priority)
-        assertEquals(MkplStatus.IN_PROGRESS, context.taskRequest.status)
+        assertEquals(Priority.CRITICAL, context.taskRequest.priority)
+        assertEquals(Status.IN_PROGRESS, context.taskRequest.status)
     }
 
     @Test
     fun toTransport() {
-        val context = MkplContext(
-            requestId = MkplRequestId("1234"),
-            command = MkplCommand.CREATE,
-            taskResponse = MkplTask(
+        val context = Context(
+            requestId = RequestId("1234"),
+            command = Command.CREATE,
+            taskResponse = Task(
                 title = "title",
                 description = "desc",
-                priority = MkplPriority.HIGH,
-                status = MkplStatus.DONE
+                priority = Priority.HIGH,
+                status = Status.DONE
             ),
             errors = mutableListOf(
-                MkplError(
+                Error(
                     code = "err",
                     group = "request",
                     field = "title",
                     message = "wrong title",
                 )
             ),
-            state = MkplState.RUNNING,
+            state = State.RUNNING,
         )
 
         val req = context.toTransportTask() as TaskCreateResponse
