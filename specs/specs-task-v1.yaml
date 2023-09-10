@@ -1,4 +1,4 @@
-openapi: 3.0.4
+openapi: 3.0.1
 info:
   title: "Task-tracker ${VERSION_APP}"
   description: Just keep track of your tasks
