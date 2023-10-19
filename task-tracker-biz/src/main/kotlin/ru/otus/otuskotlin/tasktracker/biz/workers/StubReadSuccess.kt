@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.tasktracker.biz.workers
 
-import TaskStub
+import ru.otus.otuskotlin.tasktracker.stub.TaskStub
 import com.crowdproj.kotlin.cor.ICorAddExecDsl
 import com.crowdproj.kotlin.cor.handlers.worker
 import ru.otus.otuskotlin.tasktracker.common.Context

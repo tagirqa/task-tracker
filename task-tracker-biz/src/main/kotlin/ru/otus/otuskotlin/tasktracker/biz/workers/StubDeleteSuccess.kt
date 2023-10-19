@@ -5,6 +5,7 @@ import com.crowdproj.kotlin.cor.handlers.worker
 import ru.otus.otuskotlin.tasktracker.common.Context
 import ru.otus.otuskotlin.tasktracker.common.models.State
 import ru.otus.otuskotlin.tasktracker.common.stubs.Stubs
+import ru.otus.otuskotlin.tasktracker.stub.TaskStub
 
 fun ICorAddExecDsl<Context>.stubDeleteSuccess(title: String) = worker {
     this.title = title

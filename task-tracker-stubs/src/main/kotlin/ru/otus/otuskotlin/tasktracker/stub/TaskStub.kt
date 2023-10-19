@@ -1,3 +1,5 @@
+package ru.otus.otuskotlin.tasktracker.stub
+
 import ru.otus.otuskotlin.tasktracker.common.models.*
 
 object TaskStub {

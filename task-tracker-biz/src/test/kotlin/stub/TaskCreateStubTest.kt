@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.tasktracker.biz.stub
 
-import TaskStub
+import ru.otus.otuskotlin.tasktracker.stub.TaskStub
 import kotlinx.coroutines.test.runTest
 import ru.otus.otuskotlin.tasktracker.biz.TaskProcessor
 import ru.otus.otuskotlin.tasktracker.common.Context
