@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.tasktracker.app.kafka
 
-import TaskProcessor
+import ru.otus.otuskotlin.tasktracker.biz.TaskProcessor
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable

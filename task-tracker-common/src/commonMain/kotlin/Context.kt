@@ -16,6 +16,13 @@ data class Context(
     var timeStart: Instant = Instant.NONE,
     var taskRequest: Task = Task(),
     var taskFilterRequest: TaskFilter = TaskFilter(),
+
+    var taskValidating: Task = Task(),
+    var taskFilterValidating: TaskFilter = TaskFilter(),
+
+    var taskValidated: Task = Task(),
+    var taskFilterValidated: TaskFilter = TaskFilter(),
+
     var taskResponse: Task = Task(),
     var tasksResponse: MutableList<Task> = mutableListOf(),
 )

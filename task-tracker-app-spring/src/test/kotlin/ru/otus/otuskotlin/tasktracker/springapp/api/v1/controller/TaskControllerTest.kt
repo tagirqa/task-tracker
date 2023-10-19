@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.tasktracker.springapp.api.v1.controller
 
-import TaskProcessor
+import ru.otus.otuskotlin.tasktracker.biz.TaskProcessor
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.coVerify

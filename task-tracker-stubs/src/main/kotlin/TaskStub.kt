@@ -4,6 +4,8 @@ object TaskStub {
 
     fun get(): Task = NEW_CRITICAL_TASK
 
+    fun prepareResult(block: Task.() -> Unit): Task = get().apply(block)
+
     fun prepareSearchList(status: Status, priority: Priority) = listOf(
         get().copy(
             id = TaskId("task1"),
