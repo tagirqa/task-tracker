@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.tasktracker.springapp.service
 
-import TaskProcessor
+import ru.otus.otuskotlin.tasktracker.biz.TaskProcessor
 import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Service
 import ru.otus.otuskotlin.tasktracker.common.Context

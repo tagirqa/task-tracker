@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.tasktracker.springapp.api.v1.controller
 
-import TaskProcessor
+import ru.otus.otuskotlin.tasktracker.biz.TaskProcessor
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping

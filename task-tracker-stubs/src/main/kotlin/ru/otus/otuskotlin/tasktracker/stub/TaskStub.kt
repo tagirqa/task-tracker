@@ -1,8 +1,12 @@
+package ru.otus.otuskotlin.tasktracker.stub
+
 import ru.otus.otuskotlin.tasktracker.common.models.*
 
 object TaskStub {
 
     fun get(): Task = NEW_CRITICAL_TASK
+
+    fun prepareResult(block: Task.() -> Unit): Task = get().apply(block)
 
     fun prepareSearchList(status: Status, priority: Priority) = listOf(
         get().copy(

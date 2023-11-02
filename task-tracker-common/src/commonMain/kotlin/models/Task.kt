@@ -9,4 +9,9 @@ data class Task(
     var status: Status = Status.NONE,
     var productId: ProductId = ProductId.NONE,
     val permissionsClient: MutableSet<TaskPermissionClient> = mutableSetOf()
-)
+) {
+    fun deepCopy(): Task = copy(
+        permissionsClient = permissionsClient.toMutableSet(),
+    )
+
+}

@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.tasktracker.springapp.config
 
-import TaskProcessor
+import ru.otus.otuskotlin.tasktracker.biz.TaskProcessor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
