@@ -4,7 +4,7 @@ import org.junit.Test
 import ru.otus.otuskotlin.tasktracker.api.v1.models.*
 import ru.otus.otuskotlin.tasktracker.common.Context
 import ru.otus.otuskotlin.tasktracker.common.models.*
-import ru.otus.otuskotlin.tasktracker.common.models.Error
+import ru.otus.otuskotlin.tasktracker.common.models.AppError
 import ru.otus.otuskotlin.tasktracker.common.stubs.Stubs
 import kotlin.test.assertEquals
 
@@ -47,8 +47,8 @@ class MapperTest {
                 priority = Priority.HIGH,
                 status = Status.DONE
             ),
-            errors = mutableListOf(
-                Error(
+            appErrors = mutableListOf(
+                AppError(
                     code = "err",
                     group = "request",
                     field = "title",

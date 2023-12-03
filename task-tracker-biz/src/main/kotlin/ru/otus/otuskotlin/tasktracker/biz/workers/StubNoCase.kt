@@ -4,7 +4,7 @@ import com.crowdproj.kotlin.cor.ICorAddExecDsl
 import com.crowdproj.kotlin.cor.handlers.worker
 import ru.otus.otuskotlin.tasktracker.common.Context
 import ru.otus.otuskotlin.tasktracker.common.helpers.fail
-import ru.otus.otuskotlin.tasktracker.common.models.Error
+import ru.otus.otuskotlin.tasktracker.common.models.AppError
 import ru.otus.otuskotlin.tasktracker.common.models.State
 
 fun ICorAddExecDsl<Context>.stubNoCase(title: String) = worker {
@@ -12,7 +12,7 @@ fun ICorAddExecDsl<Context>.stubNoCase(title: String) = worker {
     on { state == State.RUNNING }
     handle {
         fail(
-            Error(
+            AppError(
                 code = "validation",
                 field = "stub",
                 group = "validation",

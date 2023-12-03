@@ -18,35 +18,35 @@ fun Context.toTransportTask(): IResponse = when (val cmd = command) {
 fun Context.toTransportCreate() = TaskCreateResponse(
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
     result = if (state == State.RUNNING) ResponseResult.SUCCESS else ResponseResult.ERROR,
-    errors = errors.toTransportErrors(),
+    errors = appErrors.toTransportErrors(),
     task = taskResponse.toTransportTask()
 )
 
 fun Context.toTransportRead() = TaskReadResponse(
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
     result = if (state == State.RUNNING) ResponseResult.SUCCESS else ResponseResult.ERROR,
-    errors = errors.toTransportErrors(),
+    errors = appErrors.toTransportErrors(),
     task = taskResponse.toTransportTask()
 )
 
 fun Context.toTransportUpdate() = TaskUpdateResponse(
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
     result = if (state == State.RUNNING) ResponseResult.SUCCESS else ResponseResult.ERROR,
-    errors = errors.toTransportErrors(),
+    errors = appErrors.toTransportErrors(),
     task = taskResponse.toTransportTask()
 )
 
 fun Context.toTransportDelete() = TaskDeleteResponse(
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
     result = if (state == State.RUNNING) ResponseResult.SUCCESS else ResponseResult.ERROR,
-    errors = errors.toTransportErrors(),
+    errors = appErrors.toTransportErrors(),
     task = taskResponse.toTransportTask()
 )
 
 fun Context.toTransportSearch() = TaskSearchResponse(
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
     result = if (state == State.RUNNING) ResponseResult.SUCCESS else ResponseResult.ERROR,
-    errors = errors.toTransportErrors(),
+    errors = appErrors.toTransportErrors(),
     tasks = tasksResponse.toTransportAd()
 )
 
@@ -57,8 +57,8 @@ fun List<Task>.toTransportAd(): List<TaskResponseObject>? = this
 
 fun Context.toTransportInit() = TaskInitResponse(
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
-    result = if (errors.isEmpty()) ResponseResult.SUCCESS else ResponseResult.ERROR,
-    errors = errors.toTransportErrors(),
+    result = if (appErrors.isEmpty()) ResponseResult.SUCCESS else ResponseResult.ERROR,
+    errors = appErrors.toTransportErrors(),
 )
 
 private fun Task.toTransportTask(): TaskResponseObject = TaskResponseObject(
@@ -97,12 +97,12 @@ private fun Status.toTransportTask() = when (this) {
     Status.NONE -> null
 }
 
-private fun List<Error>.toTransportErrors(): List<ApiModelsError>? = this
+private fun List<AppError>.toTransportErrors(): List<ApiModelsError>? = this
     .map { it.toTransportTask() }
     .toList()
     .takeIf { it.isNotEmpty() }
 
-private fun Error.toTransportTask() = ApiModelsError(
+private fun AppError.toTransportTask() = ApiModelsError(
     code = code.takeIf { it.isNotBlank() },
     group = group.takeIf { it.isNotBlank() },
     field = field.takeIf { it.isNotBlank() },
