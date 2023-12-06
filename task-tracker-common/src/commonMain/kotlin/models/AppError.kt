@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.tasktracker.common.models
 
-data class Error(
+data class AppError(
     val code: String = "",
     val group: String = "",
     val field: String = "",

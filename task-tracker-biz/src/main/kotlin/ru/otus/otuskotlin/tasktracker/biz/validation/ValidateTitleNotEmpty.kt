@@ -8,6 +8,7 @@ import ru.otus.otuskotlin.tasktracker.common.helpers.fail
 
 fun ICorAddExecDsl<Context>.validateTitleNotEmpty(title: String) = worker {
     this.title = title
+    println("title: $title")
     on { taskValidating.title.isEmpty() }
     handle {
         fail(

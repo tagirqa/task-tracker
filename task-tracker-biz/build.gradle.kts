@@ -19,5 +19,6 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("test-junit"))
     api("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
+    testImplementation(project(mapOf("path" to ":task-tracker-repo-tests")))
 
 }

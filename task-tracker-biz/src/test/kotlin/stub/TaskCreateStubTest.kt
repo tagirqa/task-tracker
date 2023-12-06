@@ -59,8 +59,8 @@ class TaskCreateStubTest {
         )
         processor.exec(ctx)
         assertEquals(Task(), ctx.taskResponse)
-        assertEquals("title", ctx.errors.firstOrNull()?.field)
-        assertEquals("validation", ctx.errors.firstOrNull()?.group)
+        assertEquals("title", ctx.appErrors.firstOrNull()?.field)
+        assertEquals("validation", ctx.appErrors.firstOrNull()?.group)
     }
     @Test
     fun badDescription() = runTest {
@@ -79,8 +79,8 @@ class TaskCreateStubTest {
         )
         processor.exec(ctx)
         assertEquals(Task(), ctx.taskResponse)
-        assertEquals("description", ctx.errors.firstOrNull()?.field)
-        assertEquals("validation", ctx.errors.firstOrNull()?.group)
+        assertEquals("description", ctx.appErrors.firstOrNull()?.field)
+        assertEquals("validation", ctx.appErrors.firstOrNull()?.group)
     }
 
     @Test
@@ -96,7 +96,7 @@ class TaskCreateStubTest {
         )
         processor.exec(ctx)
         assertEquals(Task(), ctx.taskResponse)
-        assertEquals("internal", ctx.errors.firstOrNull()?.group)
+        assertEquals("internal", ctx.appErrors.firstOrNull()?.group)
     }
 
     @Test
@@ -116,7 +116,7 @@ class TaskCreateStubTest {
         )
         processor.exec(ctx)
         assertEquals(Task(), ctx.taskResponse)
-        assertEquals("stub", ctx.errors.firstOrNull()?.field)
-        assertEquals("validation", ctx.errors.firstOrNull()?.group)
+        assertEquals("stub", ctx.appErrors.firstOrNull()?.field)
+        assertEquals("validation", ctx.appErrors.firstOrNull()?.group)
     }
 }

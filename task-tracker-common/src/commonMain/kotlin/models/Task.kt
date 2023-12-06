@@ -8,7 +8,8 @@ data class Task(
     var priority: Priority = Priority.NONE,
     var status: Status = Status.NONE,
     var productId: ProductId = ProductId.NONE,
-    val permissionsClient: MutableSet<TaskPermissionClient> = mutableSetOf()
+    val permissionsClient: MutableSet<TaskPermissionClient> = mutableSetOf(),
+    var lock: TaskLock = TaskLock.NONE,
 ) {
     fun deepCopy(): Task = copy(
         permissionsClient = permissionsClient.toMutableSet(),
