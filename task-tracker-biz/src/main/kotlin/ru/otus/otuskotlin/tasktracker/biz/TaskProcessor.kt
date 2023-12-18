@@ -19,9 +19,9 @@ import ru.otus.otuskotlin.tasktracker.common.models.TaskLock
 
 class TaskProcessor(
     @Suppress("unused")
-    private val corSettings: CorSettings = CorSettings.NONE
+    private val corSettings: CorSettings = CorSettings()
 ) {
-    suspend fun exec(ctx: Context) = BusinessChain.exec(ctx.apply { settings = corSettings })
+    suspend fun exec(ctx: Context) = BusinessChain.exec(ctx.apply { this.settings = this@TaskProcessor.corSettings })
 
     companion object {
         private val BusinessChain = rootChain<Context> {

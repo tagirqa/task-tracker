@@ -18,6 +18,7 @@ fun Context.fromTransport(request: IRequest) = when (request) {
 private fun String?.toTaskId() = this?.let { TaskId(it) } ?: TaskId.NONE
 private fun String?.toTaskWithId() = Task(id = this.toTaskId())
 private fun IRequest?.requestId() = this?.requestId?.let { RequestId(it) } ?: RequestId.NONE
+private fun String?.toTaskLock() = this?.let { TaskLock(it) } ?: TaskLock.NONE
 
 private fun TaskDebug?.transportToWorkMode(): WorkMode = when (this?.mode) {
     TaskRequestDebugMode.PROD -> WorkMode.PROD
@@ -66,9 +67,18 @@ fun Context.fromTransport(request: TaskUpdateRequest) {
 fun Context.fromTransport(request: TaskDeleteRequest) {
     command = Command.DELETE
     requestId = request.requestId()
-    taskRequest = request.task?.id.toTaskWithId()
+    taskRequest = request.task.toInternal()
     workMode = request.debug.transportToWorkMode()
     stubCase = request.debug.transportToStubCase()
+}
+
+private fun TaskDeleteObject?.toInternal(): Task = if (this != null) {
+    Task(
+        id = id.toTaskId(),
+        lock = lock.toTaskLock(),
+    )
+} else {
+    Task()
 }
 
 fun Context.fromTransport(request: TaskSearchRequest) {
@@ -80,7 +90,9 @@ fun Context.fromTransport(request: TaskSearchRequest) {
 }
 
 private fun TaskSearchFilter?.toInternal(): TaskFilter = TaskFilter(
-    searchString = this?.searchString ?: ""
+    title = this?.title ?: "",
+    priority = this?.priority.fromTransport(),
+    status = this?.status.fromTransport()
 )
 
 private fun TaskCreateObject.toInternal(): Task = Task(
@@ -96,6 +108,7 @@ private fun TaskUpdateObject.toInternal(): Task = Task(
     description = this.description ?: "",
     priority = this.priority.fromTransport(),
     status = this.status.fromTransport(),
+    lock = lock.toTaskLock()
 )
 
 private fun TaskPriority?.fromTransport(): Priority = when (this) {

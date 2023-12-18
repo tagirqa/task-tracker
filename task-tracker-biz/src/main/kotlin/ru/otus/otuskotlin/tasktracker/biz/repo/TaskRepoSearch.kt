@@ -12,7 +12,7 @@ fun ICorAddExecDsl<Context>.repoSearch(title: String) = worker {
     on { state == State.RUNNING }
     handle {
         val request = DbTaskFilterRequest(
-            titleFilter = taskFilterValidated.searchString,
+            titleFilter = taskFilterValidated.title,
             ownerId = taskFilterValidated.ownerId,
             priority = taskFilterValidated.priority,
             status = taskFilterValidated.status

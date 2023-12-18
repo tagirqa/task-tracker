@@ -17,35 +17,35 @@ fun Context.toTransportTask(): IResponse = when (val cmd = command) {
 
 fun Context.toTransportCreate() = TaskCreateResponse(
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
-    result = if (state == State.RUNNING) ResponseResult.SUCCESS else ResponseResult.ERROR,
+    result = state.toResult(),
     errors = appErrors.toTransportErrors(),
     task = taskResponse.toTransportTask()
 )
 
 fun Context.toTransportRead() = TaskReadResponse(
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
-    result = if (state == State.RUNNING) ResponseResult.SUCCESS else ResponseResult.ERROR,
+    result = state.toResult(),
     errors = appErrors.toTransportErrors(),
     task = taskResponse.toTransportTask()
 )
 
 fun Context.toTransportUpdate() = TaskUpdateResponse(
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
-    result = if (state == State.RUNNING) ResponseResult.SUCCESS else ResponseResult.ERROR,
+    result = state.toResult(),
     errors = appErrors.toTransportErrors(),
     task = taskResponse.toTransportTask()
 )
 
 fun Context.toTransportDelete() = TaskDeleteResponse(
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
-    result = if (state == State.RUNNING) ResponseResult.SUCCESS else ResponseResult.ERROR,
+    result = state.toResult(),
     errors = appErrors.toTransportErrors(),
     task = taskResponse.toTransportTask()
 )
 
 fun Context.toTransportSearch() = TaskSearchResponse(
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
-    result = if (state == State.RUNNING) ResponseResult.SUCCESS else ResponseResult.ERROR,
+    result = state.toResult(),
     errors = appErrors.toTransportErrors(),
     tasks = tasksResponse.toTransportAd()
 )
@@ -68,6 +68,7 @@ private fun Task.toTransportTask(): TaskResponseObject = TaskResponseObject(
     ownerId = ownerId.takeIf { it != UserId.NONE }?.asString(),
     priority = priority.toTransportTask(),
     status = status.toTransportTask(),
+    lock = lock.takeIf { it != TaskLock.NONE }?.asString(),
     permissions = permissionsClient.toTransportTask(),
 )
 
@@ -108,3 +109,10 @@ private fun AppError.toTransportTask() = ApiModelsError(
     field = field.takeIf { it.isNotBlank() },
     message = message.takeIf { it.isNotBlank() },
 )
+
+private fun State.toResult(): ResponseResult? = when (this) {
+    State.RUNNING -> ResponseResult.SUCCESS
+    State.FAILING -> ResponseResult.ERROR
+    State.FINISHING -> ResponseResult.SUCCESS
+    State.NONE -> null
+}

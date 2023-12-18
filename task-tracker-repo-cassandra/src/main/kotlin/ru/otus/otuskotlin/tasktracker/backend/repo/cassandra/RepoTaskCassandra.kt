@@ -27,7 +27,7 @@ import kotlin.time.toDuration
 
 class RepoTaskCassandra(
     private val keyspaceName: String,
-    private val host: String = "",
+    private val host: String = "0.0.0.0",
     private val port: Int = 9042,
     private val user: String = "cassandra",
     private val pass: String = "cassandra",
@@ -83,8 +83,8 @@ class RepoTaskCassandra(
         }
     }
 
-    private fun errorToAdResponse(e: Exception) = DbTaskResponse.error(e.asTaskTrackerError())
-    private fun errorToAdsResponse(e: Exception) = DbTasksResponse.error(e.asTaskTrackerError())
+    private fun errorToTaskResponse(e: Exception) = DbTaskResponse.error(e.asTaskTrackerError())
+    private fun errorToTasksResponse(e: Exception) = DbTasksResponse.error(e.asTaskTrackerError())
 
     private suspend inline fun <DbRes, Response> doDbAction(
         name: String,
@@ -118,7 +118,7 @@ class RepoTaskCassandra(
             "create",
             { dao.create(TaskCassandraDTO(new)) },
             { DbTaskResponse.success(new) },
-            ::errorToAdResponse
+            ::errorToTaskResponse
         )
     }
 
@@ -132,7 +132,7 @@ class RepoTaskCassandra(
                 if (found != null) DbTaskResponse.success(found.toTaskModel())
                 else ID_NOT_FOUND
             },
-            ::errorToAdResponse
+            ::errorToTaskResponse
         )
 
     override suspend fun updateTask(rq: DbTaskRequest): DbTaskResponse {
@@ -162,7 +162,7 @@ class RepoTaskCassandra(
                     )
                 }
             },
-            ::errorToAdResponse
+            ::errorToTaskResponse
         )
     }
 
@@ -190,7 +190,7 @@ class RepoTaskCassandra(
                     )
                 }
             },
-            ::errorToAdResponse
+            ::errorToTaskResponse
         )
     }
 
@@ -202,7 +202,7 @@ class RepoTaskCassandra(
             { found ->
                 DbTasksResponse.success(found.map { it.toTaskModel() })
             },
-            ::errorToAdsResponse
+            ::errorToTasksResponse
         )
 
     companion object {

@@ -17,7 +17,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk9:$coroutinesVersion")
 
     implementation("com.benasher44:uuid:$kmpUUIDVersion")
-
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}")
     implementation("com.datastax.oss:java-driver-core:$cassandraDriverVersion")
     implementation("com.datastax.oss:java-driver-query-builder:$cassandraDriverVersion")
     kapt("com.datastax.oss:java-driver-mapper-processor:$cassandraDriverVersion")

@@ -302,9 +302,13 @@ components:
       type: object
       description: Набор фильтров для поиска
       properties:
-        searchString:
+        title:
           type: string
-          description: Поисковая строка, которая будет искаться в задачах
+          description: Название задачи, которую ищем
+        priority:
+          $ref: '#/components/schemas/TaskPriority'
+        status:
+          $ref: '#/components/schemas/TaskStatus'
 
     TaskSearchRequest:
       allOf:

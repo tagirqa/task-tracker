@@ -23,9 +23,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation(project(":task-tracker-repo-tests"))
-                implementation(project(":task-tracker-repo-stubs"))
-                api("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
             }
         }
     }

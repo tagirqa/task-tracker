@@ -44,7 +44,7 @@ class BizRepoSearchTest {
             state = State.NONE,
             workMode = WorkMode.TEST,
             taskFilterRequest = TaskFilter(
-                searchString = "ab",
+                title = "ab",
                 status = Status.DONE
             ),
         )
