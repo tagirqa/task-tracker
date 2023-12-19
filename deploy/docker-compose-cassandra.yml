@@ -1,0 +1,17 @@
+version: '3'
+services:
+  cassandra:
+    image: cassandra:3.11.2
+    container_name: my-cassandra
+    ports:
+      - "9042:9042"  # Порт Cassandra
+    environment:
+      - MAX_HEAP_SIZE=512M  # Настройка размера кучи (опционально)
+      - HEAP_NEWSIZE=100M  # Настройка размера кучи (опционально)
+
+    volumes:
+      - cassandra_data:/var/lib/cassandra  # Монтирование тома для данных Cassandra
+
+volumes:
+  cassandra_data:
+    driver: local

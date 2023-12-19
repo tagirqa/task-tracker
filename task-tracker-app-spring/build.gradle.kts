@@ -11,6 +11,8 @@ dependencies {
     val springdocOpenapiUiVersion: String by project
     val coroutinesVersion: String by project
     val serializationVersion: String by project
+    val cassandraDriverVersion: String by project
+    val logbackVersion: String by project
 
     implementation("org.springframework.boot:spring-boot-starter-actuator") // info; refresh; springMvc output
     implementation("org.springframework.boot:spring-boot-starter-webflux") // Controller, Service, etc..
@@ -20,10 +22,13 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect") // for spring-boot app
     implementation("org.jetbrains.kotlin:kotlin-stdlib") // for spring-boot app
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:${coroutinesVersion}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:${coroutinesVersion}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive:${coroutinesVersion}")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+    implementation("com.datastax.oss:java-driver-core:$cassandraDriverVersion")
+    implementation(project(":task-tracker-app-common"))
 
     // transport models
     implementation(project(":task-tracker-common"))
@@ -31,6 +36,12 @@ dependencies {
     // v1 api
     implementation(project(":task-tracker-api-v1-jackson"))
     implementation(project(":task-tracker-mappers-v1"))
+    implementation(project(":task-tracker-repo-cassandra"))
+    implementation(project(":task-tracker-repo-in-memory"))
+    implementation(project(":task-tracker-lib-logging-logback"))
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("com.sndyuk:logback-more-appenders:1.8.8")
+    implementation("org.fluentd:fluent-logger:0.3.4")
 
     // biz
     implementation(project(":task-tracker-biz"))

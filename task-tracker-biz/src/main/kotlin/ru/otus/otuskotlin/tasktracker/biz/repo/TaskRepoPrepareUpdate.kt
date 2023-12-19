@@ -16,6 +16,7 @@ fun ICorAddExecDsl<Context>.repoPrepareUpdate(title: String) = worker {
             description = taskValidated.description
             priority = taskValidated.priority
             status = taskValidated.status
+            lock = taskValidated.lock
         }
     }
 }
