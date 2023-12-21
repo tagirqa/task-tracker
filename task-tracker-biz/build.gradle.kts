@@ -12,6 +12,7 @@ dependencies {
     implementation(kotlin("stdlib-common"))
     implementation(project(":task-tracker-common"))
     implementation(project(":task-tracker-stubs"))
+    implementation(project(":task-tracker-auth"))
     implementation("com.crowdproj:kotlin-cor:$kotlinCorVersion")
 
     implementation(kotlin("test-common"))

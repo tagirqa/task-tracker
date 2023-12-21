@@ -4,6 +4,7 @@ import kotlinx.coroutines.test.runTest
 import repo.repoNotFoundTest
 import ru.otus.otuskotlin.tasktracker.backend.repo.tests.TaskRepositoryMock
 import ru.otus.otuskotlin.tasktracker.biz.TaskProcessor
+import ru.otus.otuskotlin.tasktracker.biz.addTestPrincipal
 import ru.otus.otuskotlin.tasktracker.common.Context
 import ru.otus.otuskotlin.tasktracker.common.CorSettings
 import ru.otus.otuskotlin.tasktracker.common.models.*
@@ -66,6 +67,7 @@ class BizRepoUpdateTest {
             workMode = WorkMode.TEST,
             taskRequest = taskToUpdate,
         )
+        ctx.addTestPrincipal(userId)
         processor.exec(ctx)
         assertEquals(State.FINISHING, ctx.state)
         assertEquals(taskToUpdate.id, ctx.taskResponse.id)

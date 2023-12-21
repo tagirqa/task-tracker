@@ -10,6 +10,7 @@ management:
 spring:
   jackson:
     default-property-inclusion: non_null
+    application.name: ${APPLICATION_NAME:spring-security-keycloak}
 
 springdoc:
   api-docs:
@@ -18,3 +19,11 @@ springdoc:
     urls:
       - name: v1
         url: specs-task-v1.yaml
+
+server:
+  port: ${SERVER_PORT:8080}
+keycloak:
+  auth-server-url: http://localhost:8484/auth
+  realm: task-tracker
+  resource: my_client
+  public-client: true

@@ -11,6 +11,7 @@ fun ICorAddExecDsl<Context>.repoPrepareCreate(title: String) = worker {
     on { state == State.RUNNING }
     handle {
         taskRepoRead = taskValidated.deepCopy()
+//        taskRepoRead.ownerId = principal.id
         taskRepoPrepare = taskRepoRead
 
     }
