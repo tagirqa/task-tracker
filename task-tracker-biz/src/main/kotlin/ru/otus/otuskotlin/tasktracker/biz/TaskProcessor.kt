@@ -7,6 +7,9 @@ import ru.otus.otuskotlin.tasktracker.biz.general.initRepo
 import ru.otus.otuskotlin.tasktracker.biz.general.prepareResult
 import ru.otus.otuskotlin.tasktracker.biz.groups.operation
 import ru.otus.otuskotlin.tasktracker.biz.groups.stubs
+import ru.otus.otuskotlin.tasktracker.biz.permissions.accessValidation
+import ru.otus.otuskotlin.tasktracker.biz.permissions.chainPermissions
+import ru.otus.otuskotlin.tasktracker.biz.permissions.frontPermissions
 import ru.otus.otuskotlin.tasktracker.biz.repo.*
 import ru.otus.otuskotlin.tasktracker.biz.validation.*
 import ru.otus.otuskotlin.tasktracker.biz.workers.*
@@ -48,11 +51,14 @@ class TaskProcessor(
 
                     finishTaskValidation("Завершение проверок")
                 }
+                chainPermissions("Вычисление разрешений для пользователя")
                 chain {
                     title = "Логика сохранения"
                     repoPrepareCreate("Подготовка объекта для сохранения")
+                    accessValidation("Вычисление прав доступа")
                     repoCreate("Создание объявления в БД")
                 }
+                frontPermissions("Вычисление пользовательских разрешений для фронтенда")
                 prepareResult("Подготовка ответа")
             }
             operation("Получить задачу", Command.READ) {
@@ -70,15 +76,18 @@ class TaskProcessor(
 
                     finishTaskValidation("Успешное завершение процедуры валидации")
                 }
+                chainPermissions("Вычисление разрешений для пользователя")
                 chain {
                     title = "Логика чтения"
                     repoRead("Чтение объявления из БД")
+                    accessValidation("Вычисление прав доступа")
                     worker {
                         title = "Подготовка ответа для Read"
                         on { state == State.RUNNING }
                         handle { taskRepoDone = taskRepoRead }
                     }
                 }
+                frontPermissions("Вычисление пользовательских разрешений для фронтенда")
                 prepareResult("Подготовка ответа")
             }
             operation("Изменить задачу", Command.UPDATE) {
@@ -107,12 +116,15 @@ class TaskProcessor(
 
                     finishTaskValidation("Успешное завершение процедуры валидации")
                 }
+                chainPermissions("Вычисление разрешений для пользователя")
                 chain {
                     title = "Логика сохранения"
                     repoRead("Чтение объявления из БД")
+                    accessValidation("Вычисление прав доступа")
                     repoPrepareUpdate("Подготовка объекта для обновления")
                     repoUpdate("Обновление объявления в БД")
                 }
+                frontPermissions("Вычисление пользовательских разрешений для фронтенда")
                 prepareResult("Подготовка ответа")
             }
             operation("Удалить задачу", Command.DELETE) {
@@ -133,12 +145,15 @@ class TaskProcessor(
                     validateLockProperFormat("Проверка формата lock")
                     finishTaskValidation("Успешное завершение процедуры валидации")
                 }
+                chainPermissions("Вычисление разрешений для пользователя")
                 chain {
                     title = "Логика удаления"
                     repoRead("Чтение объявления из БД")
+                    accessValidation("Вычисление прав доступа")
                     repoPrepareDelete("Подготовка объекта для удаления")
                     repoDelete("Удаление объявления из БД")
                 }
+                frontPermissions("Вычисление пользовательских разрешений для фронтенда")
                 prepareResult("Подготовка ответа")
             }
             operation("Поиск задачи", Command.SEARCH) {
@@ -153,7 +168,9 @@ class TaskProcessor(
 
                     finishTaskFilterValidation("Успешное завершение процедуры валидации")
                 }
+                chainPermissions("Вычисление разрешений для пользователя")
                 repoSearch("Поиск задач в БД по фильтру")
+                frontPermissions("Вычисление пользовательских разрешений для фронтенда")
                 prepareResult("Подготовка ответа")
             }
         }.build()

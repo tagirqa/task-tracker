@@ -12,10 +12,12 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.web.reactive.function.BodyInserters
 import ru.otus.otuskotlin.tasktracker.api.v1.models.*
+import ru.otus.otuskotlin.tasktracker.backend.repo.cassandra.RepoTaskCassandra
 import ru.otus.otuskotlin.tasktracker.common.Context
 import ru.otus.otuskotlin.tasktracker.mappers.v1.*
+import ru.otus.otuskotlin.tasktracker.springapp.config.CorConfig
 
-@WebFluxTest(TaskController::class)
+@WebFluxTest(TaskController::class, CorConfig::class)
 class TaskControllerTest {
 
     @Autowired
@@ -24,8 +26,9 @@ class TaskControllerTest {
     @MockkBean(relaxUnitFun = true)
     private lateinit var processor: TaskProcessor
 
-    @Autowired
-    private lateinit var mapper: ObjectMapper
+    @Suppress("unused")
+    @MockkBean
+    private lateinit var repo: RepoTaskCassandra
 
     @Test
     fun createTask() = testStubTask(
@@ -77,8 +80,7 @@ class TaskControllerTest {
             .expectBody(Res::class.java)
             .value {
                 println("RESPONSE: $it")
-                val expectedResponse =  mapper.readValue(mapper.writeValueAsString(responseObj as IResponse), IResponse::class.java)
-                Assertions.assertThat(it).isEqualTo(expectedResponse)
+                Assertions.assertThat(it).isEqualTo(responseObj)
             }
         coVerify { processor.exec(any()) }
     }

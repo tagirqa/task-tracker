@@ -3,6 +3,7 @@ package ru.otus.otuskotlin.tasktracker.biz.repo
 import kotlinx.coroutines.test.runTest
 import ru.otus.otuskotlin.tasktracker.backend.repo.tests.TaskRepositoryMock
 import ru.otus.otuskotlin.tasktracker.biz.TaskProcessor
+import ru.otus.otuskotlin.tasktracker.biz.addTestPrincipal
 import ru.otus.otuskotlin.tasktracker.common.Context
 import ru.otus.otuskotlin.tasktracker.common.CorSettings
 import ru.otus.otuskotlin.tasktracker.common.models.*
@@ -49,6 +50,7 @@ class BizRepoCreateTest {
                 status = Status.IN_PROGRESS
             ),
         )
+        ctx.addTestPrincipal(userId)
         processor.exec(ctx)
         println(ctx.taskResponse)
         println(ctx.appErrors)

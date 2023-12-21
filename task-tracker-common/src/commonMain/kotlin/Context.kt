@@ -2,6 +2,8 @@ package ru.otus.otuskotlin.tasktracker.common
 
 import kotlinx.datetime.Instant
 import ru.otus.otuskotlin.tasktracker.common.models.*
+import ru.otus.otuskotlin.tasktracker.common.permissions.TaskTrackerPrincipalModel
+import ru.otus.otuskotlin.tasktracker.common.permissions.TaskTrackerUserPermissions
 import ru.otus.otuskotlin.tasktracker.common.repo.ITaskRepository
 import ru.otus.otuskotlin.tasktracker.common.stubs.Stubs
 
@@ -33,4 +35,8 @@ data class Context(
     var taskRepoPrepare: Task = Task(), // То, что готовим для сохранения в БД
     var taskRepoDone: Task = Task(),  // Результат, полученный из БД
     var tasksRepoDone: MutableList<Task> = mutableListOf(),
+
+    var principal: TaskTrackerPrincipalModel = TaskTrackerPrincipalModel.NONE,
+    val permissionsChain: MutableSet<TaskTrackerUserPermissions> = mutableSetOf(),
+    var permitted: Boolean = false,
 )

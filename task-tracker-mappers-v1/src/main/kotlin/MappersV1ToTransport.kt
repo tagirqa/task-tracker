@@ -16,6 +16,7 @@ fun Context.toTransportTask(): IResponse = when (val cmd = command) {
 }
 
 fun Context.toTransportCreate() = TaskCreateResponse(
+    responseType = "create",
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
     result = state.toResult(),
     errors = appErrors.toTransportErrors(),
@@ -23,6 +24,7 @@ fun Context.toTransportCreate() = TaskCreateResponse(
 )
 
 fun Context.toTransportRead() = TaskReadResponse(
+    responseType = "read",
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
     result = state.toResult(),
     errors = appErrors.toTransportErrors(),
@@ -30,6 +32,7 @@ fun Context.toTransportRead() = TaskReadResponse(
 )
 
 fun Context.toTransportUpdate() = TaskUpdateResponse(
+    responseType = "update",
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
     result = state.toResult(),
     errors = appErrors.toTransportErrors(),
@@ -37,6 +40,7 @@ fun Context.toTransportUpdate() = TaskUpdateResponse(
 )
 
 fun Context.toTransportDelete() = TaskDeleteResponse(
+    responseType = "delete",
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
     result = state.toResult(),
     errors = appErrors.toTransportErrors(),
@@ -44,13 +48,14 @@ fun Context.toTransportDelete() = TaskDeleteResponse(
 )
 
 fun Context.toTransportSearch() = TaskSearchResponse(
+    responseType = "search",
     requestId = this.requestId.asString().takeIf { it.isNotBlank() },
     result = state.toResult(),
     errors = appErrors.toTransportErrors(),
-    tasks = tasksResponse.toTransportAd()
+    tasks = tasksResponse.toTransportTask()
 )
 
-fun List<Task>.toTransportAd(): List<TaskResponseObject>? = this
+fun List<Task>.toTransportTask(): List<TaskResponseObject>? = this
     .map { it.toTransportTask() }
     .toList()
     .takeIf { it.isNotEmpty() }
